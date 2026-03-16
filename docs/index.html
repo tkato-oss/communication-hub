@@ -370,6 +370,19 @@
   }
   .fade-up.visible { opacity: 1; transform: translateY(0); }
 
+  /* ===== TYPING ANIMATION ===== */
+  .typing-dots { display: inline-flex; gap: 4px; align-items: center; padding: 4px 0; }
+  .typing-dot {
+    width: 6px; height: 6px; border-radius: 50%; background: var(--text3);
+    animation: typingBounce 1.2s infinite ease-in-out;
+  }
+  .typing-dot:nth-child(2) { animation-delay: 0.2s; }
+  .typing-dot:nth-child(3) { animation-delay: 0.4s; }
+  @keyframes typingBounce {
+    0%, 60%, 100% { transform: translateY(0); opacity: 0.4; }
+    30% { transform: translateY(-6px); opacity: 1; }
+  }
+
   /* ===== RESPONSIVE ===== */
   @media (max-width: 768px) {
     nav { padding: 0 16px; }
@@ -510,45 +523,20 @@
         </div>
         <div class="demo-convs" id="demoConvs"></div>
       </div>
-      <!-- Right -->
+      <!-- Right (Auto-animated) -->
       <div class="demo-right" id="demoRight">
         <div class="demo-chat-header">
           <div class="demo-conv-avatar slack" style="width:32px;height:32px;font-size:12px;">&#30000;</div>
           <div>
-            <h3>田中 美咲</h3>
-            <small>Slack DM</small>
+            <h3 id="demoChatName">高橋 美咲</h3>
+            <small id="demoChatSub">Slack DM</small>
           </div>
         </div>
-        <div class="demo-messages" id="demoMessages">
-          <div class="demo-msg">
-            <div class="demo-msg-avatar">&#30000;</div>
-            <div class="demo-msg-content">
-              <div class="demo-msg-name">田中 美咲</div>
-              <div class="demo-msg-bubble">お疲れ様です！先日ご提案いただいた件、社内で検討しました。<br>来週火曜日に詳細の打ち合わせをお願いできますでしょうか？</div>
-              <div class="demo-msg-time">14:32</div>
-            </div>
-          </div>
-          <div class="demo-msg">
-            <div class="demo-msg-avatar">&#30000;</div>
-            <div class="demo-msg-content">
-              <div class="demo-msg-name">田中 美咲</div>
-              <div class="demo-msg-bubble">午前中であれば10:00-12:00のいずれかで調整可能です。</div>
-              <div class="demo-msg-time">14:33</div>
-            </div>
-          </div>
-        </div>
-        <!-- AI suggestion -->
-        <div class="ai-reply-box">
-          <div class="ai-reply-label">&#10024; AI返信提案（Smart Reply）</div>
-          <div class="ai-reply-text">田中様、お疲れ様です。ご検討いただきありがとうございます！来週火曜日、10:00からでお願いできればと思います。場所はオンライン（Zoom）でいかがでしょうか？</div>
-          <div class="ai-reply-actions">
-            <button class="ai-reply-btn send" onclick="demoSendAI()">&#x27A4; この内容で送信</button>
-            <button class="ai-reply-btn edit">&#9998; 編集する</button>
-          </div>
-        </div>
+        <div class="demo-messages" id="demoMessages"></div>
+        <div id="demoAiArea"></div>
         <div class="demo-compose">
-          <input class="demo-compose-input" placeholder="メッセージを入力... (Slack: 田中 美咲)" readonly />
-          <button class="demo-compose-btn">&#x27A4;</button>
+          <input class="demo-compose-input" placeholder="メッセージを入力..." readonly id="demoComposeInput" />
+          <button class="demo-compose-btn" id="demoComposeBtn">&#x27A4;</button>
         </div>
         <div class="demo-status">
           <span><span class="demo-status-dot"></span>AI接続中 | 全ツール監視中</span>
@@ -647,15 +635,15 @@
 <script>
   // ===== Demo conversation data =====
   const demoConvs = [
-    { name: '田中 美咲', tool: 'slack', avatar: '田', time: '14:33', preview: '午前中であれば10:00-12:00...', unread: 2 },
-    { name: 'NC営業チーム', tool: 'slack', avatar: 'N', time: '13:05', preview: '@加藤 今月の進捗シートを更新し...', unread: 1 },
-    { name: 'メディカルコラボ', tool: 'chatwork', avatar: '医', time: '12:30', preview: '請求書の件、ご確認お願いいた...', unread: 2 },
-    { name: '岡本 理事長', tool: 'chatwork', avatar: '岡', time: '11:45', preview: '来月の理事会資料について...', unread: 0 },
-    { name: 'Claude Team', tool: 'gmail', avatar: 'C', time: '10:02', preview: 'New features available in...', unread: 1 },
-    { name: '佐藤 健一', tool: 'teams', avatar: '佐', time: '9:30', preview: '定例会議の議事録を共有します', unread: 0 },
-    { name: '経理チーム', tool: 'lineworks', avatar: '経', time: '3/15', preview: '稼働報告書の確認をお願い...', unread: 1 },
-    { name: '境 広輝', tool: 'gmail', avatar: '境', time: '3/15', preview: '3月分の請求書をお送りします', unread: 1 },
-    { name: '勇 周佑', tool: 'messenger', avatar: '勇', time: '3/14', preview: 'ありがとうございました！', unread: 0 },
+    { name: '高橋 美咲', tool: 'slack', avatar: '高', time: '14:33', preview: '午前中であれば10:00-12:00...', unread: 2 },
+    { name: '営業チーム', tool: 'slack', avatar: '営', time: '13:05', preview: '今月の進捗シートを更新し...', unread: 1 },
+    { name: 'さくらクリニック', tool: 'chatwork', avatar: 'さ', time: '12:30', preview: '請求書の件、ご確認お願いいた...', unread: 2 },
+    { name: '中村 理事長', tool: 'chatwork', avatar: '中', time: '11:45', preview: '来月の理事会資料について...', unread: 0 },
+    { name: 'Cloud Service', tool: 'gmail', avatar: 'C', time: '10:02', preview: 'New features available in...', unread: 1 },
+    { name: '鈴木 健一', tool: 'teams', avatar: '鈴', time: '9:30', preview: '定例会議の議事録を共有します', unread: 0 },
+    { name: '管理部チーム', tool: 'lineworks', avatar: '管', time: '3/15', preview: '稼働報告書の確認をお願い...', unread: 1 },
+    { name: '渡辺 拓也', tool: 'gmail', avatar: '渡', time: '3/15', preview: '3月分の請求書をお送りします', unread: 1 },
+    { name: '小林 翔太', tool: 'messenger', avatar: '小', time: '3/14', preview: 'ありがとうございました！', unread: 0 },
   ];
 
   // Render demo conversation list
@@ -674,26 +662,192 @@
     </div>
   `).join('');
 
-  // Demo send AI reply
-  function demoSendAI() {
-    const box = document.querySelector('.ai-reply-box');
-    const msgs = document.getElementById('demoMessages');
-    if (!box || !msgs) return;
+  // ===== Auto-animated Demo =====
+  const demoScenarios = [
+    {
+      name: '高橋 美咲', tool: 'slack', sub: 'Slack DM', avatar: '高', avatarClass: 'slack',
+      messages: [
+        { self: false, name: '高橋 美咲', text: 'お疲れ様です！先日ご提案いただいた件、社内で検討しました。<br>来週火曜日に詳細の打ち合わせをお願いできますでしょうか？', time: '14:32' },
+        { self: false, name: '高橋 美咲', text: '午前中であれば10:00-12:00のいずれかで調整可能です。', time: '14:33' },
+      ],
+      aiReply: '高橋様、お疲れ様です。ご検討いただきありがとうございます！来週火曜日、10:00からでお願いできればと思います。場所はオンライン（Zoom）でいかがでしょうか？',
+      selfReplyTime: '14:35',
+    },
+    {
+      name: 'さくらクリニック', tool: 'chatwork', sub: 'Chatwork グループ', avatar: 'さ', avatarClass: 'chatwork',
+      messages: [
+        { self: false, name: '伊藤 太郎', text: '請求書の件、ご確認お願いいたします。<br>3月分の明細を添付しました。', time: '12:28' },
+        { self: false, name: '伊藤 太郎', text: '月末までにご承認いただけると助かります。', time: '12:30' },
+      ],
+      aiReply: '伊藤様、お疲れ様です。請求書の件、確認いたしました。内容に問題ございませんので、本日中に承認処理を進めます。',
+      selfReplyTime: '12:35',
+    },
+    {
+      name: '管理部チーム', tool: 'lineworks', sub: 'LINE WORKS グループ', avatar: '管', avatarClass: 'lineworks',
+      messages: [
+        { self: false, name: '松本 大輝', text: '稼働報告書の確認をお願いいたします。<br>3月分のシートを更新しました。', time: '10:15' },
+        { self: false, name: '松本 大輝', text: '吉田さんの出社日時も追記済みです。', time: '10:18' },
+      ],
+      aiReply: '松本さん、ご連絡ありがとうございます。稼働報告書を確認しました。吉田の分も含めて問題ありません。お疲れ様です！',
+      selfReplyTime: '10:22',
+    },
+  ];
 
-    const text = document.querySelector('.ai-reply-text').textContent;
-    const newMsg = document.createElement('div');
-    newMsg.className = 'demo-msg self';
-    newMsg.innerHTML = `
-      <div class="demo-msg-avatar">加</div>
-      <div class="demo-msg-content">
-        <div class="demo-msg-bubble">${text}</div>
-        <div class="demo-msg-time">今</div>
-      </div>
-    `;
-    msgs.appendChild(newMsg);
-    box.innerHTML = '<div style="text-align:center;padding:8px;font-size:11px;color:#22c55e;">&#10003; 送信完了（Slack: 田中 美咲）</div>';
-    msgs.scrollTop = msgs.scrollHeight;
+  let currentScenario = 0;
+  let demoAnimationStarted = false;
+
+  function sleep(ms) { return new Promise(r => setTimeout(r, ms)); }
+
+  async function runDemoAnimation() {
+    while (true) {
+      const s = demoScenarios[currentScenario];
+      const msgs = document.getElementById('demoMessages');
+      const aiArea = document.getElementById('demoAiArea');
+      const chatName = document.getElementById('demoChatName');
+      const chatSub = document.getElementById('demoChatSub');
+      const composeInput = document.getElementById('demoComposeInput');
+      const headerAvatar = document.querySelector('.demo-chat-header .demo-conv-avatar');
+
+      // Reset
+      msgs.innerHTML = '';
+      aiArea.innerHTML = '';
+      composeInput.placeholder = 'メッセージを入力... (' + s.sub.split(' ')[0] + ': ' + s.name + ')';
+
+      // Update header
+      chatName.textContent = s.name;
+      chatSub.textContent = s.sub;
+      headerAvatar.className = 'demo-conv-avatar ' + s.avatarClass;
+      headerAvatar.style.cssText = 'width:32px;height:32px;font-size:12px;';
+      headerAvatar.textContent = s.avatar;
+
+      // Highlight active conversation in list
+      document.querySelectorAll('.demo-conv').forEach((el, i) => {
+        const convName = el.querySelector('.demo-conv-name')?.textContent;
+        el.classList.toggle('active', convName === s.name);
+      });
+
+      await sleep(800);
+
+      // Show messages one by one with typing indicator
+      for (const m of s.messages) {
+        // Typing indicator
+        const typing = document.createElement('div');
+        typing.className = 'demo-msg';
+        typing.innerHTML = `
+          <div class="demo-msg-avatar">${s.avatar}</div>
+          <div class="demo-msg-content">
+            <div class="demo-msg-name">${m.name}</div>
+            <div class="demo-msg-bubble" style="color:var(--text3);">
+              <span class="typing-dots">
+                <span class="typing-dot"></span><span class="typing-dot"></span><span class="typing-dot"></span>
+              </span>
+            </div>
+          </div>
+        `;
+        msgs.appendChild(typing);
+        msgs.scrollTop = msgs.scrollHeight;
+        await sleep(1200);
+
+        // Replace with actual message
+        typing.innerHTML = `
+          <div class="demo-msg-avatar">${s.avatar}</div>
+          <div class="demo-msg-content">
+            <div class="demo-msg-name">${m.name}</div>
+            <div class="demo-msg-bubble">${m.text}</div>
+            <div class="demo-msg-time">${m.time}</div>
+          </div>
+        `;
+        msgs.scrollTop = msgs.scrollHeight;
+        await sleep(1000);
+      }
+
+      await sleep(800);
+
+      // AI analyzing indicator
+      aiArea.innerHTML = `
+        <div class="ai-reply-box" style="opacity:0;transition:opacity 0.4s;">
+          <div class="ai-reply-label">&#10024; AI分析中...</div>
+          <div class="ai-reply-text" style="color:var(--text3);">
+            <span class="typing-dots" style="display:inline-flex;">
+              <span class="typing-dot"></span><span class="typing-dot"></span><span class="typing-dot"></span>
+            </span>
+            メッセージを分析し、最適な返信案を生成しています...
+          </div>
+        </div>
+      `;
+      await sleep(50);
+      aiArea.querySelector('.ai-reply-box').style.opacity = '1';
+      await sleep(2000);
+
+      // Show AI reply
+      aiArea.innerHTML = `
+        <div class="ai-reply-box" style="opacity:0;transition:opacity 0.4s;">
+          <div class="ai-reply-label">&#10024; AI返信提案（Smart Reply）</div>
+          <div class="ai-reply-text">${s.aiReply}</div>
+          <div class="ai-reply-actions">
+            <button class="ai-reply-btn send">&#x27A4; この内容で送信</button>
+            <button class="ai-reply-btn edit">&#9998; 編集する</button>
+          </div>
+        </div>
+      `;
+      await sleep(50);
+      aiArea.querySelector('.ai-reply-box').style.opacity = '1';
+      await sleep(2500);
+
+      // Highlight send button
+      const sendBtn = aiArea.querySelector('.ai-reply-btn.send');
+      if (sendBtn) {
+        sendBtn.style.transform = 'scale(1.08)';
+        sendBtn.style.boxShadow = '0 0 16px rgba(108,99,255,0.5)';
+        sendBtn.style.transition = 'all 0.3s';
+      }
+      await sleep(800);
+
+      // Send the reply
+      const selfMsg = document.createElement('div');
+      selfMsg.className = 'demo-msg self';
+      selfMsg.innerHTML = `
+        <div class="demo-msg-avatar">加</div>
+        <div class="demo-msg-content">
+          <div class="demo-msg-bubble">${s.aiReply}</div>
+          <div class="demo-msg-time">${s.selfReplyTime}</div>
+        </div>
+      `;
+      msgs.appendChild(selfMsg);
+      msgs.scrollTop = msgs.scrollHeight;
+
+      aiArea.innerHTML = `
+        <div style="text-align:center;padding:10px;font-size:11px;color:#22c55e;animation:msgIn 0.3s ease;">
+          &#10003; 送信完了（${s.sub.split(' ')[0]}: ${s.name}）
+        </div>
+      `;
+
+      await sleep(3000);
+
+      // Move to next scenario
+      currentScenario = (currentScenario + 1) % demoScenarios.length;
+    }
   }
+
+  // Start animation when demo section is visible
+  function startDemoIfNeeded() {
+    if (demoAnimationStarted) return;
+    demoAnimationStarted = true;
+    runDemoAnimation();
+  }
+  const demoObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => { if (entry.isIntersecting) startDemoIfNeeded(); });
+  }, { threshold: 0.01, rootMargin: '300px' });
+  demoObserver.observe(document.querySelector('.demo-container'));
+  // Fallback: start on scroll near demo or after timeout
+  window.addEventListener('scroll', function checkDemo() {
+    const el = document.querySelector('.demo-container');
+    if (el && el.getBoundingClientRect().top < window.innerHeight + 300) {
+      startDemoIfNeeded();
+      window.removeEventListener('scroll', checkDemo);
+    }
+  });
+  setTimeout(startDemoIfNeeded, 8000);
 
   // Scroll-based fade-in animation
   const observer = new IntersectionObserver((entries) => {
