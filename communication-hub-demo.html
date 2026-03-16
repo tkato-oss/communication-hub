@@ -63,14 +63,14 @@
     padding: 0 40px; height: 64px;
     display: flex; align-items: center; justify-content: space-between;
   }
-  .nav-brand { display: flex; align-items: center; gap: 12px; }
-  .nav-brand-text { font-size: 18px; font-weight: 700; color: var(--text); }
-  .nav-brand-text span { color: var(--accent); }
+  .nav-brand { display: flex; align-items: center; gap: 10px; }
+  .nav-brand-text { font-size: 11px; font-weight: 600; color: var(--text3); letter-spacing: 0.5px; }
+  .nav-brand-text span { color: var(--text3); }
   .nav-links { display: flex; gap: 28px; }
   .nav-links a { color: var(--text3); text-decoration: none; font-size: 13px; font-weight: 500; transition: color 0.2s; }
   .nav-links a:hover { color: var(--accent); }
-  .nav-logos { display: flex; align-items: center; gap: 16px; }
-  .nav-logos img { height: 28px; object-fit: contain; }
+  .nav-logos { display: flex; align-items: center; }
+  .nav-logos img { height: 48px; object-fit: contain; }
 
   /* ===== HERO ===== */
   .hero {
@@ -484,7 +484,7 @@
   @media (max-width: 768px) {
     nav { padding: 0 16px; }
     .nav-links { display: none; }
-    .nav-logos img { height: 22px; }
+    .nav-logos img { height: 36px; }
     section { padding: 60px 20px; }
     .hero { padding: 100px 20px 60px; }
     .flow-arrow { display: none; }
@@ -497,7 +497,7 @@
 <!-- NAV -->
 <nav>
   <div class="nav-brand">
-    <img src="portament-logo.jpg" alt="PORTAMENT" style="height:44px;object-fit:contain;" />
+    <img src="portament-logo.jpg" alt="PORTAMENT" style="height:52px;object-fit:contain;" />
     <span class="nav-brand-text"><span>Communication</span> Hub</span>
   </div>
   <div class="nav-links">
