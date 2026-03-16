@@ -180,135 +180,117 @@
   .arch-arrow { color: var(--text3); font-size: 20px; }
   .arch-label { font-size: 11px; color: var(--text3); }
 
-  /* ===== DEMO SECTION ===== */
-  .demo-container {
-    border: 1px solid var(--border); border-radius: 16px; overflow: hidden;
-    background: var(--bg2); max-width: 1000px; margin: 0 auto;
-    box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+  /* ===== INTERACTIVE DEMO SECTION ===== */
+  .hub-demo {
+    background: #0f1623;
+    border-radius: 16px;
+    overflow: hidden;
+    color: #e2e8f0;
+    max-width: 900px;
+    margin: 0 auto;
+    border: 1px solid #1e2a3e;
+    box-shadow: 0 25px 60px rgba(0,0,0,0.5);
   }
-  .demo-titlebar {
-    background: var(--bg3); padding: 10px 16px; display: flex; align-items: center; gap: 8px;
-    border-bottom: 1px solid var(--border);
+  .hub-header {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 12px 16px; background: #161d2e; border-bottom: 1px solid #1e2a3e;
   }
-  .demo-dot { width: 10px; height: 10px; border-radius: 50%; }
-  .demo-dot.r { background: #ef4444; } .demo-dot.y { background: #eab308; } .demo-dot.g { background: #22c55e; }
-  .demo-titlebar span { font-size: 11px; color: var(--text3); margin-left: 8px; }
-  .demo-body {
-    display: flex; height: 520px;
+  .hub-header-left { display: flex; align-items: center; gap: 8px; }
+  .hub-status-dot {
+    width: 8px; height: 8px; border-radius: 50%; background: #22c55e;
+    animation: pulse-dot 2s ease-in-out infinite;
   }
-
-  /* Demo left panel */
-  .demo-left {
-    width: 300px; border-right: 1px solid var(--border); display: flex; flex-direction: column; flex-shrink: 0;
-    background: var(--bg2);
+  @keyframes pulse-dot { 0%,100% { opacity: 1; } 50% { opacity: 0.5; } }
+  .hub-header-title { font-size: 13px; font-weight: 500; color: #94a3b8; }
+  .hub-demo-badge { font-size: 11px; color: #475569; padding: 3px 8px; border: 1px solid #1e2a3e; border-radius: 4px; }
+  .hub-main { display: flex; min-height: 480px; }
+  .hub-sidebar { width: 240px; border-right: 1px solid #1e2a3e; display: flex; flex-direction: column; flex-shrink: 0; }
+  .hub-tabs { display: flex; overflow-x: auto; border-bottom: 1px solid #1e2a3e; padding: 0 4px; scrollbar-width: none; }
+  .hub-tabs::-webkit-scrollbar { display: none; }
+  .hub-tab {
+    padding: 10px 9px; font-size: 11px; background: none; border: none; color: #94a3b8;
+    cursor: pointer; white-space: nowrap; border-bottom: 2px solid transparent;
+    font-family: inherit; transition: color 0.15s, border-color 0.15s;
   }
-  .demo-header {
-    padding: 14px; border-bottom: 1px solid var(--border);
+  .hub-tab:hover { color: #cbd5e1; }
+  .hub-tab.active { border-bottom-color: #7c3aed; color: #e2e8f0; }
+  .hub-tab-badge { background: #ef4444; color: #fff; font-size: 10px; padding: 1px 5px; border-radius: 8px; margin-left: 3px; }
+  .hub-msg-list { flex: 1; overflow-y: auto; scrollbar-width: thin; scrollbar-color: #1e2a3e transparent; }
+  .hub-msg-item { padding: 12px 14px; border-bottom: 1px solid #1e2a3e; cursor: pointer; transition: background 0.15s; }
+  .hub-msg-item:hover { background: #151c2c; }
+  .hub-msg-item.selected { background: #1a2236; }
+  .hub-msg-row { display: flex; align-items: center; gap: 8px; margin-bottom: 4px; }
+  .hub-avatar { width: 28px; height: 28px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 11px; color: #fff; flex-shrink: 0; }
+  .hub-avatar-lg { width: 34px; height: 34px; font-size: 12px; font-weight: 500; }
+  .hub-msg-meta { flex: 1; min-width: 0; }
+  .hub-msg-name-row { display: flex; justify-content: space-between; align-items: center; }
+  .hub-msg-name { font-size: 13px; font-weight: 500; }
+  .hub-msg-name.unread { color: #f1f5f9; }
+  .hub-msg-name.read { color: #64748b; }
+  .hub-msg-time { font-size: 10px; color: #475569; }
+  .hub-msg-tool { font-size: 11px; color: #64748b; margin-top: 1px; }
+  .hub-unread-dot { width: 7px; height: 7px; border-radius: 50%; background: #7c3aed; flex-shrink: 0; }
+  .hub-msg-preview { font-size: 12px; color: #64748b; margin: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; padding-left: 36px; }
+  .hub-chat-area { flex: 1; display: flex; flex-direction: column; min-width: 0; }
+  .hub-placeholder { flex: 1; display: flex; align-items: center; justify-content: center; }
+  .hub-placeholder-inner { text-align: center; color: #475569; }
+  .hub-placeholder-icon { font-size: 28px; margin-bottom: 12px; }
+  .hub-placeholder-text { font-size: 14px; }
+  .hub-detail { flex: 1; display: none; flex-direction: column; }
+  .hub-detail.visible { display: flex; }
+  .hub-detail-header { padding: 14px 16px; border-bottom: 1px solid #1e2a3e; display: flex; align-items: center; gap: 10px; }
+  .hub-detail-info { min-width: 0; }
+  .hub-detail-name { font-size: 14px; font-weight: 500; }
+  .hub-detail-tool { font-size: 11px; color: #64748b; }
+  .hub-badge { margin-left: auto; font-size: 10px; padding: 2px 8px; border-radius: 4px; flex-shrink: 0; font-weight: 500; }
+  .hub-chat { flex: 1; overflow-y: auto; padding: 16px; display: flex; flex-direction: column; gap: 12px; scrollbar-width: thin; scrollbar-color: #1e2a3e transparent; }
+  .hub-bub-them { display: flex; gap: 8px; align-items: flex-start; max-width: 85%; animation: fadeSlideLeft 0.3s ease; }
+  @keyframes fadeSlideLeft { from { opacity: 0; transform: translateX(-8px); } to { opacity: 1; transform: translateX(0); } }
+  .hub-bub-them-avatar { width: 26px; height: 26px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 10px; color: #fff; flex-shrink: 0; margin-top: 2px; }
+  .hub-bub-them-text { background: #1a2236; border-radius: 2px 10px 10px 10px; padding: 10px 14px; font-size: 13px; line-height: 1.7; color: #cbd5e1; }
+  .hub-bub-ai-wrap { display: flex; flex-direction: column; align-items: flex-end; max-width: 85%; margin-left: auto; animation: fadeSlideRight 0.3s ease; }
+  @keyframes fadeSlideRight { from { opacity: 0; transform: translateX(8px); } to { opacity: 1; transform: translateX(0); } }
+  .hub-bub-ai-label { display: flex; align-items: center; gap: 5px; margin-bottom: 3px; }
+  .hub-bub-ai-dot { width: 5px; height: 5px; border-radius: 50%; background: #8b5cf6; }
+  .hub-bub-ai-tag { font-size: 10px; color: #7c3aed; font-weight: 500; }
+  .hub-bub-ai-sent { font-size: 10px; color: #4ade80; margin-left: 4px; }
+  .hub-bub-ai-text { background: #1e1b3a; border: 1px solid #2d2b55; border-radius: 10px 2px 10px 10px; padding: 10px 14px; font-size: 13px; line-height: 1.7; white-space: pre-line; min-width: 140px; }
+  .hub-bub-ai-text.sent { color: #8b7fbd; }
+  .hub-bub-ai-text.active { color: #c4b5fd; }
+  .hub-typing-ind { color: #7c3aed; font-size: 12px; }
+  .hub-actions { display: none; margin-top: 8px; gap: 8px; }
+  .hub-actions.visible { display: flex; }
+  .hub-btn-send { padding: 7px 18px; font-size: 12px; background: #7c3aed; color: #fff; border: none; border-radius: 6px; cursor: pointer; font-family: inherit; font-weight: 500; transition: background 0.15s, transform 0.1s; }
+  .hub-btn-send:hover { background: #6d28d9; }
+  .hub-btn-send:active { transform: scale(0.97); }
+  .hub-btn-regen { padding: 7px 18px; font-size: 12px; background: none; color: #94a3b8; border: 1px solid #2d3748; border-radius: 6px; cursor: pointer; font-family: inherit; transition: border-color 0.15s, transform 0.1s; }
+  .hub-btn-regen:hover { border-color: #475569; }
+  .hub-btn-regen:active { transform: scale(0.97); }
+  .hub-sent-confirm { font-size: 11px; color: #4ade80; display: flex; align-items: center; gap: 4px; }
+  .hub-incoming-note { text-align: center; padding: 6px 0; animation: fadeIn 0.3s ease; }
+  @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+  .hub-incoming-note span { font-size: 11px; color: #64748b; background: #1a2236; padding: 4px 14px; border-radius: 10px; }
+  .hub-complete { text-align: center; padding: 16px 0; animation: fadeIn 0.5s ease; }
+  .hub-complete-inner { display: inline-flex; flex-direction: column; align-items: center; gap: 6px; background: #0c1a12; padding: 14px 24px; border-radius: 10px; border: 1px solid #14532d; }
+  .hub-complete-icon { color: #4ade80; font-size: 18px; }
+  .hub-complete-title { font-size: 13px; color: #4ade80; font-weight: 500; }
+  .hub-complete-sub { font-size: 11px; color: #64748b; }
+  .hub-footer { padding: 8px 16px; background: #161d2e; border-top: 1px solid #1e2a3e; display: flex; align-items: center; justify-content: space-between; }
+  .hub-footer-status { font-size: 11px; color: #22c55e; }
+  .hub-footer-brand { font-size: 10px; color: #334155; }
+  @media (max-width: 640px) {
+    .hub-sidebar { width: 200px; }
+    .hub-main { min-height: 400px; }
+    .hub-bub-them, .hub-bub-ai-wrap { max-width: 92%; }
   }
-  .demo-brand { font-size: 15px; font-weight: 700; margin-bottom: 10px; }
-  .demo-brand span { color: var(--accent); }
-  .demo-search {
-    width: 100%; background: var(--bg4); border: 1px solid var(--border); color: var(--text);
-    padding: 8px 12px; border-radius: 8px; font-size: 12px; outline: none;
+  @media (max-width: 480px) {
+    .hub-sidebar { width: 72px; }
+    .hub-msg-meta, .hub-msg-preview, .hub-unread-dot { display: none; }
+    .hub-avatar { width: 36px; height: 36px; font-size: 13px; }
+    .hub-msg-item { padding: 10px 8px; display: flex; justify-content: center; }
+    .hub-msg-row { margin-bottom: 0; }
+    .hub-tabs { display: none; }
   }
-  .demo-pills {
-    display: flex; gap: 4px; padding: 8px 14px; border-bottom: 1px solid var(--border); overflow-x: auto;
-  }
-  .demo-pill {
-    padding: 4px 10px; border-radius: 12px; font-size: 10px; cursor: pointer;
-    border: 1px solid var(--border); color: var(--text3); background: transparent;
-    white-space: nowrap; transition: all 0.15s;
-  }
-  .demo-pill.active { background: var(--accent); border-color: var(--accent); color: #fff; }
-  .demo-pill-badge { background: #ef4444; color: #fff; font-size: 8px; padding: 1px 4px; border-radius: 4px; margin-left: 3px; }
-  .demo-convs { flex: 1; overflow-y: auto; }
-  .demo-conv {
-    padding: 10px 14px; display: flex; gap: 10px; cursor: pointer;
-    border-bottom: 1px solid rgba(42,45,58,0.3); transition: background 0.12s;
-  }
-  .demo-conv:hover { background: var(--bg3); }
-  .demo-conv.active { background: var(--bg4); }
-  .demo-conv-avatar {
-    width: 36px; height: 36px; border-radius: 50%; display: flex; align-items: center; justify-content: center;
-    font-size: 13px; font-weight: 600; flex-shrink: 0; position: relative;
-  }
-  .demo-conv-avatar.slack { background: rgba(74,21,75,0.3); color: var(--slack-light); }
-  .demo-conv-avatar.chatwork { background: rgba(226,56,63,0.15); color: var(--chatwork); }
-  .demo-conv-avatar.teams { background: rgba(91,95,199,0.15); color: var(--teams); }
-  .demo-conv-avatar.gmail { background: rgba(234,67,53,0.15); color: var(--gmail); }
-  .demo-conv-avatar.lineworks { background: rgba(0,199,60,0.15); color: var(--lineworks); }
-  .demo-conv-avatar.messenger { background: rgba(0,132,255,0.15); color: var(--messenger); }
-  .demo-tool-dot {
-    position: absolute; bottom: -1px; right: -1px; width: 12px; height: 12px;
-    border-radius: 50%; border: 2px solid var(--bg2);
-  }
-  .demo-tool-dot.slack { background: var(--slack); }
-  .demo-tool-dot.chatwork { background: var(--chatwork); }
-  .demo-tool-dot.teams { background: var(--teams); }
-  .demo-tool-dot.gmail { background: var(--gmail); }
-  .demo-tool-dot.lineworks { background: var(--lineworks); }
-  .demo-tool-dot.messenger { background: var(--messenger); }
-  .demo-conv-info { flex: 1; min-width: 0; }
-  .demo-conv-top { display: flex; justify-content: space-between; margin-bottom: 3px; }
-  .demo-conv-name { font-size: 12px; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-  .demo-conv-time { font-size: 9px; color: var(--text3); flex-shrink: 0; }
-  .demo-conv-preview { font-size: 11px; color: var(--text3); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-  .demo-unread { background: var(--accent); color: #fff; font-size: 9px; min-width: 16px; height: 16px; border-radius: 8px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; align-self: center; }
-
-  /* Demo right panel */
-  .demo-right { flex: 1; display: flex; flex-direction: column; }
-  .demo-chat-header {
-    padding: 12px 18px; border-bottom: 1px solid var(--border); display: flex; align-items: center; gap: 10px;
-    background: var(--bg3);
-  }
-  .demo-chat-header h3 { font-size: 13px; font-weight: 600; }
-  .demo-chat-header small { font-size: 10px; color: var(--text3); }
-  .demo-messages { flex: 1; padding: 16px; overflow-y: auto; display: flex; flex-direction: column; gap: 10px; }
-  .demo-msg {
-    display: flex; gap: 8px; max-width: 75%; animation: msgIn 0.3s ease;
-  }
-  .demo-msg.self { align-self: flex-end; flex-direction: row-reverse; }
-  @keyframes msgIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
-  .demo-msg-avatar {
-    width: 28px; height: 28px; border-radius: 50%; background: var(--bg4);
-    display: flex; align-items: center; justify-content: center; font-size: 10px; font-weight: 600; flex-shrink: 0; color: var(--text3);
-  }
-  .demo-msg.self .demo-msg-avatar { background: rgba(108,99,255,0.2); color: var(--accent); }
-  .demo-msg-content { display: flex; flex-direction: column; gap: 2px; }
-  .demo-msg.self .demo-msg-content { align-items: flex-end; }
-  .demo-msg-name { font-size: 10px; color: var(--text3); }
-  .demo-msg-bubble {
-    padding: 9px 13px; border-radius: 14px; font-size: 12px; line-height: 1.6;
-  }
-  .demo-msg:not(.self) .demo-msg-bubble { background: var(--bg4); border-top-left-radius: 4px; color: var(--text2); }
-  .demo-msg.self .demo-msg-bubble { background: var(--accent); color: #fff; border-top-right-radius: 4px; }
-  .demo-msg-time { font-size: 9px; color: var(--text3); }
-  .demo-compose {
-    padding: 12px 16px; border-top: 1px solid var(--border); display: flex; gap: 8px; align-items: center;
-    background: var(--bg3);
-  }
-  .demo-compose-input {
-    flex: 1; background: var(--bg4); border: 1px solid var(--border); color: var(--text);
-    padding: 9px 14px; border-radius: 20px; font-size: 12px; outline: none;
-  }
-  .demo-compose-btn {
-    width: 34px; height: 34px; border-radius: 50%; background: var(--accent); border: none;
-    color: #fff; font-size: 14px; cursor: pointer; display: flex; align-items: center; justify-content: center;
-  }
-  .demo-status { padding: 5px 14px; font-size: 9px; color: var(--text3); display: flex; justify-content: space-between; border-top: 1px solid var(--border); }
-  .demo-status-dot { display: inline-block; width: 5px; height: 5px; border-radius: 50%; background: var(--green); margin-right: 4px; }
-
-  /* AI Reply suggestion */
-  .ai-reply-box {
-    margin: 8px 16px; padding: 12px 16px; background: rgba(108,99,255,0.06); border: 1px solid rgba(108,99,255,0.2);
-    border-radius: 12px; animation: msgIn 0.5s ease;
-  }
-  .ai-reply-label { font-size: 10px; color: var(--accent); font-weight: 600; margin-bottom: 6px; display: flex; align-items: center; gap: 4px; }
-  .ai-reply-text { font-size: 12px; color: var(--text2); line-height: 1.6; }
-  .ai-reply-actions { margin-top: 8px; display: flex; gap: 6px; }
-  .ai-reply-btn { padding: 4px 12px; border-radius: 6px; font-size: 10px; border: none; cursor: pointer; font-weight: 600; }
-  .ai-reply-btn.send { background: var(--accent); color: #fff; }
-  .ai-reply-btn.edit { background: var(--bg4); color: var(--text2); border: 1px solid var(--border); }
 
   /* ===== FLOW SECTION ===== */
   .flow-steps {
@@ -494,55 +476,48 @@
   </div>
 </section>
 
-<!-- DEMO -->
+<!-- DEMO (Interactive) -->
 <section id="demo">
-  <div class="section-label fade-up" style="text-align:center;">Live Demo</div>
+  <div class="section-label fade-up" style="text-align:center;">Interactive Demo</div>
   <div class="section-title fade-up" style="text-align:center;">統合メッセージング画面</div>
-  <div class="section-desc fade-up" style="text-align:center;margin:0 auto 48px;">全ツールのメッセージを一つの画面で管理。AIが返信を提案します。</div>
+  <div class="section-desc fade-up" style="text-align:center;margin:0 auto 48px;">メッセージをクリックして、AIによる返信提案と送信の流れを体験できます。</div>
 
-  <div class="demo-container fade-up">
-    <div class="demo-titlebar">
-      <div class="demo-dot r"></div><div class="demo-dot y"></div><div class="demo-dot g"></div>
-      <span>Communication Hub v2.0</span>
-    </div>
-    <div class="demo-body">
-      <!-- Left -->
-      <div class="demo-left">
-        <div class="demo-header">
-          <div class="demo-brand"><span>Communication</span> Hub</div>
-          <input class="demo-search" placeholder="チャット・メッセージを検索..." readonly />
-        </div>
-        <div class="demo-pills">
-          <div class="demo-pill active">すべて<span class="demo-pill-badge">8</span></div>
-          <div class="demo-pill">Slack<span class="demo-pill-badge">3</span></div>
-          <div class="demo-pill">CW<span class="demo-pill-badge">2</span></div>
-          <div class="demo-pill">Teams</div>
-          <div class="demo-pill">Gmail<span class="demo-pill-badge">2</span></div>
-          <div class="demo-pill">LW<span class="demo-pill-badge">1</span></div>
-          <div class="demo-pill">MSG</div>
-        </div>
-        <div class="demo-convs" id="demoConvs"></div>
+  <div class="hub-demo fade-up" id="hubDemo">
+    <div class="hub-header">
+      <div class="hub-header-left">
+        <div class="hub-status-dot"></div>
+        <span class="hub-header-title">Communication Hub v2.0</span>
       </div>
-      <!-- Right (Auto-animated) -->
-      <div class="demo-right" id="demoRight">
-        <div class="demo-chat-header">
-          <div class="demo-conv-avatar slack" style="width:32px;height:32px;font-size:12px;">&#30000;</div>
-          <div>
-            <h3 id="demoChatName">高橋 美咲</h3>
-            <small id="demoChatSub">Slack DM</small>
+      <span class="hub-demo-badge">INTERACTIVE DEMO</span>
+    </div>
+    <div class="hub-main">
+      <div class="hub-sidebar">
+        <div class="hub-tabs" id="hubTabs"></div>
+        <div class="hub-msg-list" id="hubMsgList"></div>
+      </div>
+      <div class="hub-chat-area">
+        <div class="hub-placeholder" id="hubPlaceholder">
+          <div class="hub-placeholder-inner">
+            <div class="hub-placeholder-icon">&#9664;</div>
+            <p class="hub-placeholder-text">メッセージを選択してください</p>
           </div>
         </div>
-        <div class="demo-messages" id="demoMessages"></div>
-        <div id="demoAiArea"></div>
-        <div class="demo-compose">
-          <input class="demo-compose-input" placeholder="メッセージを入力..." readonly id="demoComposeInput" />
-          <button class="demo-compose-btn" id="demoComposeBtn">&#x27A4;</button>
-        </div>
-        <div class="demo-status">
-          <span><span class="demo-status-dot"></span>AI接続中 | 全ツール監視中</span>
-          <span>Powered by Communication Hub</span>
+        <div class="hub-detail" id="hubDetail">
+          <div class="hub-detail-header">
+            <div class="hub-avatar hub-avatar-lg" id="hAvatar"></div>
+            <div class="hub-detail-info">
+              <div class="hub-detail-name" id="hName"></div>
+              <div class="hub-detail-tool" id="hTool"></div>
+            </div>
+            <div class="hub-badge" id="hBadge"></div>
+          </div>
+          <div class="hub-chat" id="hubChat"></div>
         </div>
       </div>
+    </div>
+    <div class="hub-footer">
+      <span class="hub-footer-status">&#9679; AI接続中 | 全ツール監視中</span>
+      <span class="hub-footer-brand">Powered by Communication Hub</span>
     </div>
   </div>
 </section>
@@ -633,221 +608,298 @@
 </footer>
 
 <script>
-  // ===== Demo conversation data =====
-  const demoConvs = [
-    { name: '高橋 美咲', tool: 'slack', avatar: '高', time: '14:33', preview: '午前中であれば10:00-12:00...', unread: 2 },
-    { name: '営業チーム', tool: 'slack', avatar: '営', time: '13:05', preview: '今月の進捗シートを更新し...', unread: 1 },
-    { name: 'さくらクリニック', tool: 'chatwork', avatar: 'さ', time: '12:30', preview: '請求書の件、ご確認お願いいた...', unread: 2 },
-    { name: '中村 理事長', tool: 'chatwork', avatar: '中', time: '11:45', preview: '来月の理事会資料について...', unread: 0 },
-    { name: 'Cloud Service', tool: 'gmail', avatar: 'C', time: '10:02', preview: 'New features available in...', unread: 1 },
-    { name: '鈴木 健一', tool: 'teams', avatar: '鈴', time: '9:30', preview: '定例会議の議事録を共有します', unread: 0 },
-    { name: '管理部チーム', tool: 'lineworks', avatar: '管', time: '3/15', preview: '稼働報告書の確認をお願い...', unread: 1 },
-    { name: '渡辺 拓也', tool: 'gmail', avatar: '渡', time: '3/15', preview: '3月分の請求書をお送りします', unread: 1 },
-    { name: '小林 翔太', tool: 'messenger', avatar: '小', time: '3/14', preview: 'ありがとうございました！', unread: 0 },
-  ];
+  // ===== Interactive Demo =====
+  (function() {
+    'use strict';
 
-  // Render demo conversation list
-  const convListEl = document.getElementById('demoConvs');
-  convListEl.innerHTML = demoConvs.map((c, i) => `
-    <div class="demo-conv ${i === 0 ? 'active' : ''}" onclick="void(0)">
-      <div class="demo-conv-avatar ${c.tool}">${c.avatar}<div class="demo-tool-dot ${c.tool}"></div></div>
-      <div class="demo-conv-info">
-        <div class="demo-conv-top">
-          <span class="demo-conv-name" style="${c.unread > 0 ? 'color:#fff;font-weight:700' : ''}">${c.name}</span>
-          <span class="demo-conv-time">${c.time}</span>
-        </div>
-        <div class="demo-conv-preview">${c.preview}</div>
-      </div>
-      ${c.unread > 0 ? `<div class="demo-unread">${c.unread}</div>` : ''}
-    </div>
-  `).join('');
-
-  // ===== Auto-animated Demo =====
-  const demoScenarios = [
-    {
-      name: '高橋 美咲', tool: 'slack', sub: 'Slack DM', avatar: '高', avatarClass: 'slack',
-      messages: [
-        { self: false, name: '高橋 美咲', text: 'お疲れ様です！先日ご提案いただいた件、社内で検討しました。<br>来週火曜日に詳細の打ち合わせをお願いできますでしょうか？', time: '14:32' },
-        { self: false, name: '高橋 美咲', text: '午前中であれば10:00-12:00のいずれかで調整可能です。', time: '14:33' },
-      ],
-      aiReply: '高橋様、お疲れ様です。ご検討いただきありがとうございます！来週火曜日、10:00からでお願いできればと思います。場所はオンライン（Zoom）でいかがでしょうか？',
-      selfReplyTime: '14:35',
-    },
-    {
-      name: 'さくらクリニック', tool: 'chatwork', sub: 'Chatwork グループ', avatar: 'さ', avatarClass: 'chatwork',
-      messages: [
-        { self: false, name: '伊藤 太郎', text: '請求書の件、ご確認お願いいたします。<br>3月分の明細を添付しました。', time: '12:28' },
-        { self: false, name: '伊藤 太郎', text: '月末までにご承認いただけると助かります。', time: '12:30' },
-      ],
-      aiReply: '伊藤様、お疲れ様です。請求書の件、確認いたしました。内容に問題ございませんので、本日中に承認処理を進めます。',
-      selfReplyTime: '12:35',
-    },
-    {
-      name: '管理部チーム', tool: 'lineworks', sub: 'LINE WORKS グループ', avatar: '管', avatarClass: 'lineworks',
-      messages: [
-        { self: false, name: '松本 大輝', text: '稼働報告書の確認をお願いいたします。<br>3月分のシートを更新しました。', time: '10:15' },
-        { self: false, name: '松本 大輝', text: '吉田さんの出社日時も追記済みです。', time: '10:18' },
-      ],
-      aiReply: '松本さん、ご連絡ありがとうございます。稼働報告書を確認しました。吉田の分も含めて問題ありません。お疲れ様です！',
-      selfReplyTime: '10:22',
-    },
-  ];
-
-  let currentScenario = 0;
-  let demoAnimationStarted = false;
-
-  function sleep(ms) { return new Promise(r => setTimeout(r, ms)); }
-
-  async function runDemoAnimation() {
-    while (true) {
-      const s = demoScenarios[currentScenario];
-      const msgs = document.getElementById('demoMessages');
-      const aiArea = document.getElementById('demoAiArea');
-      const chatName = document.getElementById('demoChatName');
-      const chatSub = document.getElementById('demoChatSub');
-      const composeInput = document.getElementById('demoComposeInput');
-      const headerAvatar = document.querySelector('.demo-chat-header .demo-conv-avatar');
-
-      // Reset
-      msgs.innerHTML = '';
-      aiArea.innerHTML = '';
-      composeInput.placeholder = 'メッセージを入力... (' + s.sub.split(' ')[0] + ': ' + s.name + ')';
-
-      // Update header
-      chatName.textContent = s.name;
-      chatSub.textContent = s.sub;
-      headerAvatar.className = 'demo-conv-avatar ' + s.avatarClass;
-      headerAvatar.style.cssText = 'width:32px;height:32px;font-size:12px;';
-      headerAvatar.textContent = s.avatar;
-
-      // Highlight active conversation in list
-      document.querySelectorAll('.demo-conv').forEach((el, i) => {
-        const convName = el.querySelector('.demo-conv-name')?.textContent;
-        el.classList.toggle('active', convName === s.name);
-      });
-
-      await sleep(800);
-
-      // Show messages one by one with typing indicator
-      for (const m of s.messages) {
-        // Typing indicator
-        const typing = document.createElement('div');
-        typing.className = 'demo-msg';
-        typing.innerHTML = `
-          <div class="demo-msg-avatar">${s.avatar}</div>
-          <div class="demo-msg-content">
-            <div class="demo-msg-name">${m.name}</div>
-            <div class="demo-msg-bubble" style="color:var(--text3);">
-              <span class="typing-dots">
-                <span class="typing-dot"></span><span class="typing-dot"></span><span class="typing-dot"></span>
-              </span>
-            </div>
-          </div>
-        `;
-        msgs.appendChild(typing);
-        msgs.scrollTop = msgs.scrollHeight;
-        await sleep(1200);
-
-        // Replace with actual message
-        typing.innerHTML = `
-          <div class="demo-msg-avatar">${s.avatar}</div>
-          <div class="demo-msg-content">
-            <div class="demo-msg-name">${m.name}</div>
-            <div class="demo-msg-bubble">${m.text}</div>
-            <div class="demo-msg-time">${m.time}</div>
-          </div>
-        `;
-        msgs.scrollTop = msgs.scrollHeight;
-        await sleep(1000);
+    var convos = [
+      {
+        id: 1, name: '高橋 美咲', ini: '高', col: '#7c3aed',
+        tool: 'slack', tl: 'Slack DM',
+        badge: 'VIP', bc: '#fbbf24', bg: '#422006',
+        time: '2分前', unread: true,
+        steps: [
+          { type: 'them', text: '先日ご提案いただいたBPOプランについて、社内で検討しました。来週月曜に30分ほどお時間いただけますか？詳細を詰めたいです。' },
+          { type: 'ai', text: '高橋様\n\nご検討いただきありがとうございます。\n来週月曜日、下記の時間帯でご都合いかがでしょうか。\n\n・10:00〜10:30\n・14:00〜14:30\n・16:00〜16:30\n\nご希望の時間をお知らせいただければ、すぐにカレンダーを押さえます。' },
+          { type: 'them', text: 'ありがとうございます。14:00〜14:30でお願いします。Zoomで大丈夫ですか？' },
+          { type: 'ai', text: '14:00〜14:30で承知しました。\nZoomにてご用意いたします。当日までにURLをお送りしますので、よろしくお願いいたします。' },
+          { type: 'them', text: '完璧です。当日の資料は事前に共有いただけると助かります。よろしくお願いします！' },
+          { type: 'ai', text: 'かしこまりました。前日の金曜日までに資料をお送りいたします。\n\n当日お話しする内容としては、\n・プラン詳細のご説明\n・御社の課題に合わせたカスタマイズ案\n・導入スケジュール\nを想定しております。\n\nそれでは月曜日、よろしくお願いいたします。' }
+        ]
+      },
+      {
+        id: 2, name: '佐藤 リカ', ini: '佐', col: '#dc2626',
+        tool: 'gmail', tl: 'Gmail',
+        badge: '社外', bc: '#f97316', bg: '#431407',
+        time: '12分前', unread: true,
+        steps: [
+          { type: 'them', text: 'お世話になっております。先日お送りした見積書について、1点修正をお願いしたくご連絡しました。オプションBの月額費用を98,000円に変更いただけますでしょうか。' },
+          { type: 'ai', text: '佐藤様\n\nお世話になっております。\nご連絡ありがとうございます。\n\nオプションBの月額費用を98,000円（税別）に修正し、本日中に改訂版をお送りいたします。\n\nその他ご不明点がございましたら、お気軽にお申し付けください。' },
+          { type: 'them', text: '早速のご対応ありがとうございます。改訂版届き次第、社内稟議に回しますので、よろしくお願いします。' },
+          { type: 'ai', text: '佐藤様\n\nかしこまりました。改訂版は本日17時までにお送りいたします。\n稟議に際してご不明点があれば、いつでもご連絡ください。\n引き続きよろしくお願いいたします。' },
+          { type: 'them', text: '承知しました。あと、契約開始日について、来月1日からで進めたいのですが可能でしょうか？' },
+          { type: 'ai', text: '佐藤様\n\n来月1日からの契約開始、問題なく対応可能です。\n\n改訂版の見積書に契約開始日も反映した形でお送りいたします。\nご契約に必要な書類一式も併せてご案内しますので、ご確認ください。' }
+        ]
+      },
+      {
+        id: 3, name: '鈴木 大輔', ini: '鈴', col: '#0891b2',
+        tool: 'cw', tl: 'Chatwork',
+        badge: '', bc: '', bg: '',
+        time: '18分前', unread: true,
+        steps: [
+          { type: 'them', text: 'マニュアル改訂版のレビュー完了しました。いくつかコメントを入れておいたので確認お願いします。概ね問題ないと思います。' },
+          { type: 'ai', text: '鈴木さん\n\nレビューありがとうございます。\nコメント確認して、本日中に反映します。\n修正が終わったら改めて共有しますね。' },
+          { type: 'them', text: '了解です。あと、ハローワークの検索手順のところ、スクショを最新版に差し替えてもらえると助かります。' },
+          { type: 'ai', text: '承知しました。スクショも最新のUIに差し替えて反映します。\n明日の午前中にはお見せできると思います。' },
+          { type: 'them', text: 'ありがとう！あと1点、indeedの手順も追加できる？最近問い合わせが増えてるので。' },
+          { type: 'ai', text: 'もちろんです。indeedの手順も追加セクションとして盛り込みます。\n\n・求人検索の操作手順\n・情報抽出のポイント\n・出力フォーマットへの転記方法\n\nこの3点をカバーする形で作成しますね。' }
+        ]
+      },
+      {
+        id: 4, name: '山本 真理', ini: '山', col: '#059669',
+        tool: 'gmail', tl: 'Gmail',
+        badge: 'VIP', bc: '#fbbf24', bg: '#422006',
+        time: '25分前', unread: true,
+        steps: [
+          { type: 'them', text: '来月のキックオフMTGの日程について相談です。第2週の火曜か水曜で調整可能でしょうか？参加者は弊社から3名を予定しています。' },
+          { type: 'ai', text: '山本様\n\nご連絡ありがとうございます。\n来月第2週、下記で対応可能です。\n\n・火曜日 10:00〜 / 15:00〜\n・水曜日 13:00〜 / 16:00〜\n\n貴社3名様＋弊社2名の1時間を想定しております。\nご都合の良い日時をお知らせください。' },
+          { type: 'them', text: '水曜13:00〜でお願いします。会議室はそちらでご用意いただけますか？' },
+          { type: 'ai', text: '水曜13:00〜で確定いたします。\n弊社の会議室Bを押さえましたので、当日は受付にてお名前をお伝えください。\n\n事前にアジェンダをお送りしますね。' },
+          { type: 'them', text: 'ありがとうございます。アジェンダ楽しみにしています。あと、当日はプロジェクターを使いたいのですが可能ですか？' },
+          { type: 'ai', text: 'もちろんです。会議室Bにはプロジェクターとスクリーンが常設されております。\nHDMIケーブルもご用意しておきますので、ノートPCをお持ちいただければすぐに投影可能です。\n\nアジェンダは前日までにメールでお送りいたします。' }
+        ]
+      },
+      {
+        id: 5, name: '中村 愛', ini: '中', col: '#e11d48',
+        tool: 'lw', tl: 'LINE WORKS',
+        badge: '社外', bc: '#f97316', bg: '#431407',
+        time: '45分前', unread: true,
+        steps: [
+          { type: 'them', text: '本日15時からのオンラインMTG、ZoomのURLをお送りいただけますか？先ほどのメールに添付がなかったようです。' },
+          { type: 'ai', text: '中村様\n\nご連絡ありがとうございます。大変失礼いたしました。\n\nZoom URL: https://zoom.us/j/xxxxx\nパスコード: 1234\n\n15時にお待ちしております。' },
+          { type: 'them', text: '確認できました！ありがとうございます。では後ほど。' },
+          { type: 'ai', text: 'ご確認ありがとうございます。\nそれでは15時にお会いしましょう。\nよろしくお願いいたします。' },
+          { type: 'them', text: 'すみません、もう1点。MTGの議事録はどなたが担当されますか？弊社側で用意した方がよいですか？' },
+          { type: 'ai', text: '中村様\n\n議事録は弊社側で作成いたしますので、ご安心ください。\nMTG終了後、翌営業日中に共有させていただきます。\n\nそれでは、本日15時によろしくお願いいたします。' }
+        ]
       }
+    ];
 
-      await sleep(800);
+    var tabs = [
+      { key: 'all', label: 'All' },
+      { key: 'slack', label: 'Slack' },
+      { key: 'gmail', label: 'Gmail' },
+      { key: 'cw', label: 'CW' },
+      { key: 'teams', label: 'Teams' },
+      { key: 'lw', label: 'LW' }
+    ];
 
-      // AI analyzing indicator
-      aiArea.innerHTML = `
-        <div class="ai-reply-box" style="opacity:0;transition:opacity 0.4s;">
-          <div class="ai-reply-label">&#10024; AI分析中...</div>
-          <div class="ai-reply-text" style="color:var(--text3);">
-            <span class="typing-dots" style="display:inline-flex;">
-              <span class="typing-dot"></span><span class="typing-dot"></span><span class="typing-dot"></span>
-            </span>
-            メッセージを分析し、最適な返信案を生成しています...
-          </div>
-        </div>
-      `;
-      await sleep(50);
-      aiArea.querySelector('.ai-reply-box').style.opacity = '1';
-      await sleep(2000);
+    var curTab = 'all';
+    var selId = null;
+    var round = {};
+    var timers = [];
+    var typing = false;
 
-      // Show AI reply
-      aiArea.innerHTML = `
-        <div class="ai-reply-box" style="opacity:0;transition:opacity 0.4s;">
-          <div class="ai-reply-label">&#10024; AI返信提案（Smart Reply）</div>
-          <div class="ai-reply-text">${s.aiReply}</div>
-          <div class="ai-reply-actions">
-            <button class="ai-reply-btn send">&#x27A4; この内容で送信</button>
-            <button class="ai-reply-btn edit">&#9998; 編集する</button>
-          </div>
-        </div>
-      `;
-      await sleep(50);
-      aiArea.querySelector('.ai-reply-box').style.opacity = '1';
-      await sleep(2500);
+    function init() { renderTabs(); renderList(); }
 
-      // Highlight send button
-      const sendBtn = aiArea.querySelector('.ai-reply-btn.send');
-      if (sendBtn) {
-        sendBtn.style.transform = 'scale(1.08)';
-        sendBtn.style.boxShadow = '0 0 16px rgba(108,99,255,0.5)';
-        sendBtn.style.transition = 'all 0.3s';
+    function cl() {
+      for (var i = 0; i < timers.length; i++) clearTimeout(timers[i]);
+      timers = []; typing = false;
+    }
+
+    function esc(s) {
+      var d = document.createElement('div');
+      d.textContent = s;
+      return d.innerHTML;
+    }
+
+    function renderTabs() {
+      var html = '';
+      for (var i = 0; i < tabs.length; i++) {
+        var t = tabs[i];
+        var isActive = t.key === curTab;
+        html += '<button class="hub-tab' + (isActive ? ' active' : '') + '" data-tab="' + t.key + '" onclick="hubSwitchTab(\'' + t.key + '\')">' + t.label;
+        if (t.key === 'all') html += ' <span class="hub-tab-badge" id="hubBadgeCount">' + getUnreadCount() + '</span>';
+        html += '</button>';
       }
-      await sleep(800);
-
-      // Send the reply
-      const selfMsg = document.createElement('div');
-      selfMsg.className = 'demo-msg self';
-      selfMsg.innerHTML = `
-        <div class="demo-msg-avatar">加</div>
-        <div class="demo-msg-content">
-          <div class="demo-msg-bubble">${s.aiReply}</div>
-          <div class="demo-msg-time">${s.selfReplyTime}</div>
-        </div>
-      `;
-      msgs.appendChild(selfMsg);
-      msgs.scrollTop = msgs.scrollHeight;
-
-      aiArea.innerHTML = `
-        <div style="text-align:center;padding:10px;font-size:11px;color:#22c55e;animation:msgIn 0.3s ease;">
-          &#10003; 送信完了（${s.sub.split(' ')[0]}: ${s.name}）
-        </div>
-      `;
-
-      await sleep(3000);
-
-      // Move to next scenario
-      currentScenario = (currentScenario + 1) % demoScenarios.length;
+      document.getElementById('hubTabs').innerHTML = html;
     }
-  }
 
-  // Start animation when demo section is visible
-  function startDemoIfNeeded() {
-    if (demoAnimationStarted) return;
-    demoAnimationStarted = true;
-    runDemoAnimation();
-  }
-  const demoObserver = new IntersectionObserver((entries) => {
-    entries.forEach(entry => { if (entry.isIntersecting) startDemoIfNeeded(); });
-  }, { threshold: 0.01, rootMargin: '300px' });
-  demoObserver.observe(document.querySelector('.demo-container'));
-  // Fallback: start on scroll near demo or after timeout
-  window.addEventListener('scroll', function checkDemo() {
-    const el = document.querySelector('.demo-container');
-    if (el && el.getBoundingClientRect().top < window.innerHeight + 300) {
-      startDemoIfNeeded();
-      window.removeEventListener('scroll', checkDemo);
+    function getUnreadCount() {
+      var c = 0;
+      for (var i = 0; i < convos.length; i++) { if (convos[i].unread) c++; }
+      return c;
     }
-  });
-  setTimeout(startDemoIfNeeded, 8000);
+
+    window.hubSwitchTab = function(t) { curTab = t; renderTabs(); renderList(); };
+
+    function renderList() {
+      var f = [];
+      for (var i = 0; i < convos.length; i++) {
+        if (curTab === 'all' || convos[i].tool === curTab) f.push(convos[i]);
+      }
+      var html = '';
+      for (var i = 0; i < f.length; i++) {
+        var m = f[i];
+        var r = round[m.id] || 0;
+        var previewIdx = Math.min(r * 2, m.steps.length - 1);
+        var preview = esc(m.steps[previewIdx].text.substring(0, 28)) + '...';
+        html += '<div class="hub-msg-item' + (selId === m.id ? ' selected' : '') + '" onclick="hubOpenConvo(' + m.id + ')">' +
+          '<div class="hub-msg-row">' +
+            '<div class="hub-avatar" style="background:' + m.col + '">' + esc(m.ini) + '</div>' +
+            '<div class="hub-msg-meta">' +
+              '<div class="hub-msg-name-row">' +
+                '<span class="hub-msg-name ' + (m.unread ? 'unread' : 'read') + '">' + esc(m.name) + '</span>' +
+                '<span class="hub-msg-time">' + m.time + '</span>' +
+              '</div>' +
+              '<div class="hub-msg-tool">' + esc(m.tl) + '</div>' +
+            '</div>' +
+            (m.unread ? '<div class="hub-unread-dot"></div>' : '') +
+          '</div>' +
+          '<p class="hub-msg-preview">' + preview + '</p>' +
+        '</div>';
+      }
+      document.getElementById('hubMsgList').innerHTML = html;
+    }
+
+    window.hubOpenConvo = function(id) {
+      cl(); selId = id;
+      if (round[id] === undefined) round[id] = 0;
+      var m = findConvo(id);
+      document.getElementById('hubPlaceholder').style.display = 'none';
+      document.getElementById('hubDetail').classList.add('visible');
+      document.getElementById('hAvatar').style.background = m.col;
+      document.getElementById('hAvatar').textContent = m.ini;
+      document.getElementById('hName').textContent = m.name;
+      document.getElementById('hTool').textContent = m.tl;
+      var b = document.getElementById('hBadge');
+      if (m.badge) { b.style.display = 'inline'; b.textContent = m.badge; b.style.color = m.bc; b.style.background = m.bg; }
+      else { b.style.display = 'none'; }
+      buildChat(id); renderList();
+    };
+
+    function findConvo(id) {
+      for (var i = 0; i < convos.length; i++) { if (convos[i].id === id) return convos[i]; }
+      return null;
+    }
+
+    function buildChat(id) {
+      var m = findConvo(id);
+      var chat = document.getElementById('hubChat');
+      chat.innerHTML = '';
+      var r = round[id] || 0;
+      var maxPairs = Math.floor(m.steps.length / 2);
+      for (var p = 0; p < r && p < maxPairs; p++) {
+        chat.innerHTML += themBub(m.steps[p * 2].text, m);
+        chat.innerHTML += sentAiBub(m.steps[p * 2 + 1].text);
+      }
+      if (r < maxPairs) {
+        chat.innerHTML += themBub(m.steps[r * 2].text, m);
+        chat.scrollTop = chat.scrollHeight;
+        startAiTyping(id, m.steps[r * 2 + 1].text);
+      } else {
+        m.unread = false; updateBadge();
+        chat.innerHTML += '<div class="hub-complete"><div class="hub-complete-inner"><span class="hub-complete-icon">&#10003;</span><span class="hub-complete-title">会話完了</span><span class="hub-complete-sub">全てのメッセージに対応しました</span></div></div>';
+        chat.scrollTop = chat.scrollHeight;
+      }
+    }
+
+    function themBub(t, m) {
+      return '<div class="hub-bub-them"><div class="hub-bub-them-avatar" style="background:' + m.col + '">' + esc(m.ini) + '</div><div class="hub-bub-them-text">' + esc(t) + '</div></div>';
+    }
+
+    function sentAiBub(t) {
+      return '<div class="hub-bub-ai-wrap"><div class="hub-bub-ai-label"><div class="hub-bub-ai-dot"></div><span class="hub-bub-ai-tag">AI返信</span><span class="hub-bub-ai-sent">&#10003; 送信済み</span></div><div class="hub-bub-ai-text sent">' + esc(t) + '</div></div>';
+    }
+
+    function startAiTyping(id, fullText) {
+      typing = true;
+      var chat = document.getElementById('hubChat');
+      var wrId = 'ai-wr-' + id;
+      chat.innerHTML += '<div id="' + wrId + '" class="hub-bub-ai-wrap"><div class="hub-bub-ai-label"><div class="hub-bub-ai-dot"></div><span class="hub-bub-ai-tag">AI返信提案</span></div><div class="hub-bub-ai-text active"><span id="typing-ind" class="hub-typing-ind">生成中</span><span id="typed-text"></span></div><div class="hub-actions" id="ai-actions"></div></div>';
+      chat.scrollTop = chat.scrollHeight;
+      var dots = 0;
+      var dotTimer = setInterval(function() {
+        dots = (dots + 1) % 4;
+        var el = document.getElementById('typing-ind');
+        if (el) el.textContent = '生成中' + Array(dots + 1).join('.');
+      }, 400);
+      timers.push(setTimeout(function() {
+        clearInterval(dotTimer);
+        var ind = document.getElementById('typing-ind');
+        if (ind) ind.textContent = '';
+        var txtEl = document.getElementById('typed-text');
+        if (!txtEl) return;
+        var chars = fullText.split('');
+        var ci = 0;
+        function typeChar() {
+          if (selId !== id || !typing) return;
+          if (ci < chars.length) {
+            txtEl.textContent += chars[ci]; ci++;
+            chat.scrollTop = chat.scrollHeight;
+            var d = chars[ci - 1] === '\n' ? 80 : 22 + Math.random() * 18;
+            timers.push(setTimeout(typeChar, d));
+          } else {
+            var act = document.getElementById('ai-actions');
+            if (act) {
+              act.classList.add('visible');
+              act.innerHTML = '<button class="hub-btn-send" onclick="hubDoSend(' + id + ')">送信する</button><button class="hub-btn-regen" onclick="hubDoRegen(' + id + ')">再生成</button>';
+            }
+            chat.scrollTop = chat.scrollHeight;
+          }
+        }
+        typeChar();
+      }, 1800));
+    }
+
+    window.hubDoSend = function(id) {
+      cl();
+      var m = findConvo(id);
+      var r = round[id] || 0;
+      var maxPairs = Math.floor(m.steps.length / 2);
+      var chat = document.getElementById('hubChat');
+      var act = document.getElementById('ai-actions');
+      if (act) { act.classList.add('visible'); act.innerHTML = '<span class="hub-sent-confirm"><span>&#10003;</span> ' + esc(m.tl) + ' 経由で送信完了</span>'; }
+      var nextRound = r + 1;
+      if (nextRound < maxPairs) {
+        timers.push(setTimeout(function() {
+          if (selId !== id) return;
+          chat.innerHTML += '<div id="incoming-note" class="hub-incoming-note"><span>' + esc(m.name) + ' が入力中...</span></div>';
+          chat.scrollTop = chat.scrollHeight;
+          timers.push(setTimeout(function() {
+            if (selId !== id) return;
+            var note = document.getElementById('incoming-note');
+            if (note) note.remove();
+            round[id] = nextRound;
+            buildChat(id); renderList();
+          }, 2500));
+        }, 1500));
+      } else {
+        round[id] = nextRound;
+        timers.push(setTimeout(function() {
+          if (selId !== id) return;
+          buildChat(id); renderList();
+        }, 1000));
+      }
+    };
+
+    window.hubDoRegen = function(id) {
+      cl();
+      var m = findConvo(id);
+      var r = round[id] || 0;
+      var wr = document.getElementById('ai-wr-' + id);
+      if (wr) wr.remove();
+      startAiTyping(id, m.steps[r * 2 + 1].text);
+      document.getElementById('hubChat').scrollTop = document.getElementById('hubChat').scrollHeight;
+    };
+
+    function updateBadge() {
+      var el = document.getElementById('hubBadgeCount');
+      if (el) el.textContent = getUnreadCount();
+    }
+
+    init();
+  })();
 
   // Scroll-based fade-in animation
   const observer = new IntersectionObserver((entries) => {
